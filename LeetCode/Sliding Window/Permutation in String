@@ -1,0 +1,45 @@
+bool checkInclusion(char * s1, char * s2){
+if(strlen(s2)<strlen(s1))
+        return false;
+
+        int m= strlen(s1);
+        int arr[26]={0},arr2[26]={0};
+
+        int l;
+        for(l=0;l<m;l++)
+        {
+            arr[s2[l]-'a']++;
+            arr2[s1[l]-'a']++;
+        }
+
+        int i=0;
+        int j=m-1;
+
+     while(j<strlen(s2))
+        {
+
+            bool flag= true;
+            int z;
+
+            for( z=0;z<26;z++)
+            {
+                if(arr[z]!=arr2[z])
+               {
+                   flag= false;
+                   break;
+               }
+            }
+            if(flag)
+            return true;
+
+            arr[s2[i]-'a']--;
+            i++;
+            j++;
+
+            if(j<strlen(s2))
+            arr[s2[j]-'a']++;
+
+        }
+        return false;
+
+}
