@@ -1,0 +1,40 @@
+int lengthOfLongestSubstring(char * s){
+
+int l=0,r=0;
+int realcoun=0;
+
+bool visited[256]={false};
+
+if(strlen(s)==1 ||strlen(s)==0 ) return strlen(s);
+
+for(;r<strlen(s);r++){
+
+    if(visited[s[r]]==false) visited[s[r]]=true;
+
+    else{
+            if(realcoun<r-l) realcoun=r-l;
+           
+
+    
+
+
+ while(l<r){
+
+    if(s[l]!=s[r]){
+        visited[s[l]]=false;
+        }
+    else{
+        l++;
+        break;}
+
+l++;
+ }
+    }
+    
+}
+
+if(realcoun<r-l) realcoun=r-l;
+
+return realcoun;
+
+}
