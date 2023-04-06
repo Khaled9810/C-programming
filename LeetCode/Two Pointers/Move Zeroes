@@ -1,0 +1,19 @@
+void moveZeroes(int* a, int s){
+ int l=0,r=1;
+
+    while(r<s && l<r){
+
+       
+
+        if(a[l]==0 &&a[r]!=0){
+            int tmp=a[l];
+            a[l]=a[r];
+            a[r]=tmp;
+            l++; r++;
+        }
+        else if (a[l]==0 &&a[r]==0) r++;
+        else{ l++; r++;}
+}
+
+
+}
