@@ -1,0 +1,31 @@
+int searchInsert(int* nums, int numsSize, int target){
+
+int l=0;
+int r=numsSize-1;
+int index;
+
+if(target <nums[0]) return 0;
+if(target>nums[r]) return numsSize;
+
+while(l<=r){
+
+  int mid=(r+l)/2;
+
+  if(target==nums[mid]) {index=mid; break;}
+  else if(target <nums[mid]){
+      r=mid-1;
+      index=((r+l)/2)+1;
+  }
+else {
+    
+     l=mid+1;
+     index=((r+l)/2)+1;
+
+}
+
+
+}
+
+return index;
+
+}
