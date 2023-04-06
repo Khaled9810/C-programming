@@ -1,0 +1,42 @@
+void reverse(char* s, int l,int r){
+
+char tmp;
+
+
+while(l<r){
+    tmp=s[l];
+    s[l]=s[r];
+    s[r]=tmp;
+    r--;
+    l++;
+}
+
+}
+
+char* reverseWords(char * s){
+
+
+int l=0,r=0;
+int c=0;
+
+while(s[r+1]!=NULL){
+
+
+   if(s[r+1]!=' ')r++;
+   else {
+       reverse(s,l,r);
+        l=r+2;
+        r+=2;
+   }
+
+     if(s[r+1]==NULL){
+        reverse(s,l,r);
+     }
+
+}
+
+
+
+return s;
+
+}
