@@ -1,0 +1,32 @@
+/**
+ * Return an array of arrays of size *returnSize.
+ * The sizes of the arrays are returned as *returnColumnSizes array.
+ * Note: Both returned array and *columnSizes array must be malloced, assume caller calls free().
+ */
+void dfs(int **image,int imageSize,int* imageColSize ,int sr,int sc,int color,int initial){
+    
+
+    if(sr<0 || sr>=imageSize || sc<0 || sc>= *imageColSize|| image[sr][sc]!=initial ){
+             return ;  }
+
+    image[sr][sc]=color;
+    dfs(image ,imageSize, imageColSize, sr-1, sc,   color, initial); //up
+    dfs(image, imageSize, imageColSize, sr+1, sc,   color, initial); //down
+    dfs(image, imageSize, imageColSize, sr,   sc-1, color, initial); //left
+    dfs(image, imageSize, imageColSize,  sr,   sc+1, color, initial); //right
+
+}
+
+int** floodFill(int** image, int imageSize, int* imageColSize, int sr, int sc, int color, int* returnSize, int** returnColumnSizes){
+
+*returnSize=imageSize;
+*imageColSize=*imageColSize;
+*returnColumnSizes=imageColSize;
+
+int initial=image[sr][sc];
+
+if(image[sr][sc] != color)
+dfs(image,imageSize,imageColSize,sr,sc,color,initial);
+
+return image;
+}
