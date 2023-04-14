@@ -1,0 +1,51 @@
+**
+ * Return an array of arrays of size *returnSize.
+ * The sizes of the arrays are returned as *returnColumnSizes array.
+ * Note: Both returned array and *columnSizes array must be malloced, assume caller calls free().
+ */
+int** updateMatrix(int** mat, int matSize, int* matColSize, int* returnSize, int** returnColumnSizes){
+
+*returnSize=matSize;
+    returnColumnSizes[0]=matColSize;
+
+long q[matSize*(*matColSize)][2];
+long front=0,rear=-1;
+
+
+int r,c;
+for(r=0;r<matSize;r++){
+       for(c=0;c<*matColSize;c++){
+              if(mat[r][c]==0){
+                     rear++;
+                     q[rear][0]=r;
+                     q[rear][1]=c;
+                     }
+              else  mat[r][c]=-1;
+
+       }
+}
+
+int drow[]={1,-1,0,0};
+int dcol[]={0,0,1,-1};
+
+while(front<=rear){
+
+    long sr=q[front][0];   long sc=q[front][1];      front++;
+
+    int i;
+    for(i=0;i<4;i++){
+
+       long dr=sr+drow[i];      long dc=sc+dcol[i];
+
+       if(dr>=0  && dr<matSize && dc>=0 && dc<*matColSize && mat[dr][dc]==-1 ){
+            rear++;
+            q[rear][0]=dr;     q[rear][1]=dc;
+
+         mat[dr][dc]=mat[sr][sc]+1;
+         }
+
+    }
+}
+
+return mat;
+}
