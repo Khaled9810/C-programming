@@ -1,0 +1,67 @@
+int orangesRotting(int** grid, int gridSize, int* gridColSize){
+
+
+int front=0,rear=-1;
+int q[gridSize*(*gridColSize)][2];
+int rotten=0;
+int fresh=0;
+
+int i,j;
+for(i=0;i<gridSize;i++){
+    for(j=0;j<*gridColSize;j++){
+        if(grid[i][j]==2){
+            rear++;
+            q[rear][0]=i;
+            q[rear][1]=j;
+            rotten++;}
+        else if(grid[i][j]==1) fresh++;
+    }
+}
+
+
+if(rotten==0 && fresh!=0) return -1;
+if(fresh==0) return 0;
+
+int drow[]={1,-1,0,0};
+int dcol[]={0,0,1,-1};
+
+int time=0;
+
+while(front<=rear){
+
+    int siz=(rear-front)+1;
+
+  while(siz>0){
+
+     siz--;
+
+
+    int sr=q[front][0];   int sc=q[front][1];  front++;
+
+    for(i=0;i<4;i++){
+
+        int dr=sr+drow[i];     int dc=sc+dcol[i];
+
+      if(dr>=0 && dr<gridSize && dc>=0 && dc<*gridColSize &&grid[dr][dc]==1){
+
+        grid[dr][dc]=2;
+        rear++;
+        q[rear][0]=dr;      q[rear][1]=dc;
+
+        fresh--;
+        }
+
+    }
+
+  }
+
+    time++;
+
+}
+
+
+if(fresh==0) return time-1;
+else return -1;
+
+
+}
