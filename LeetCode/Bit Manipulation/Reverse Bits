@@ -1,0 +1,20 @@
+uint32_t reverseBits(uint32_t n) {
+
+uint32_t reverse_num=n;
+
+int count=31;
+
+
+n>>=1;
+while(n){
+reverse_num<<=1;
+
+reverse_num|=n &1;
+n>>=1;
+count--;
+}
+reverse_num<<=count;
+
+return reverse_num;
+
+}
