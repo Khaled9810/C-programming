@@ -1,0 +1,13 @@
+int singleNumber(int* nums, int numsSize){
+         
+      if(numsSize==1) return nums[0];
+
+      int number=nums[0];
+
+   int i;
+   for(i=1;i<numsSize;i++){
+        number^=nums[i];
+   }   
+
+return number;
+}
