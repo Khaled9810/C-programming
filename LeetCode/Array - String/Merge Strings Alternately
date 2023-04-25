@@ -1,0 +1,25 @@
+char * mergeAlternately(char * word1, char * word2){
+
+static char new[300] ;
+
+int i=0,j=0,k=0;
+
+while(i<strlen(word1) && j<strlen(word2)){
+   
+    new[k++]=word1[i++];
+    new[k++]=word2[j++];
+
+}
+
+while(j==strlen(word2) && i<=strlen(word1) ){
+    new[k++]=word1[i++];
+}
+
+while(i==strlen(word1) && j<=strlen(word2) ){
+    new[k++]=word2[j++];
+}
+
+new[k]=NULL;
+
+return new;
+}
