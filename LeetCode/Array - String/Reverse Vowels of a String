@@ -1,0 +1,28 @@
+char * reverseVowels(char * s){
+
+int front=0,rear=strlen(s);
+
+while(front<=rear){
+  
+   if(s[front]=='a' ||s[front]=='e' ||s[front]=='i' ||s[front]=='o' ||s[front]=='u'||s[front]=='A' ||s[front]=='E' ||s[front]=='I' ||s[front]=='O' ||s[front]=='U' ){
+    
+       if(s[rear]=='a' ||s[rear]=='e' ||s[rear]=='i' ||s[rear]=='o' ||s[rear]=='u'|| s[rear]=='A' ||s[rear]=='E' ||s[rear]=='I' ||s[rear]=='O' ||s[rear]=='U'  ){
+           char tmp=s[front];
+           s[front]=s[rear];
+           s[rear]=tmp;
+           front++;
+           rear--;
+       }
+
+      else{
+          rear--;
+      } 
+   }
+   else{
+       front++;
+   }
+
+}
+
+return s;
+}
