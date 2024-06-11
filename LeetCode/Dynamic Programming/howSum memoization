@@ -1,0 +1,50 @@
+
+int* howSum(int targetSum , int*numbers , int numberSize){
+
+  if(memo[targetSum] !=NULL  && targetSum >=0)
+       return memo[targetSum];    
+
+ if(targetSum == 0) {
+     int *result = (int*)malloc(sizeof(int));
+     result[0] = -1;
+     return result;
+ }    
+ 
+ if(targetSum < 0) return NULL;
+    
+
+for(int i=0 ; i< numberSize ; i++ ){
+    
+    int *remainderResult = howSum(targetSum - numbers[i] , numbers , numberSize);
+    
+    if(remainderResult != NULL){
+        
+        int remainderSize =0;
+        
+        for(;remainderResult[remainderSize]!=-1 ; remainderSize++);
+        
+    int *result = (int*)malloc( (remainderSize +2) *sizeof(int) );    
+    for(int j=0 ; j<remainderSize ;j++){
+         result[j] = remainderResult[j];
+    }
+    
+    result[remainderSize]  = numbers[i];
+    result[remainderSize +1] = -1;
+     
+    memo[targetSum] = result; 
+     
+    free(remainderResult);
+    return result;
+        
+    }
+    
+    
+}    
+    
+    
+    
+    
+    
+    memo[targetSum] = NULL;
+    return NULL;
+}
