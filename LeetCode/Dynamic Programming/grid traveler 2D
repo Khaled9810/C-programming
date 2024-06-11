@@ -1,0 +1,12 @@
+
+int grid(int r, int c ,int m[][1000] ){
+    
+    if(r==0 || c==0) return 0;
+    if(r==1 && c==1) return 1;
+    
+    m[r][c] =  grid(r-1 , c,m) + grid(r , c-1 ,m);
+    m[c][r] = m[r][c];
+    
+    return m[r][c];
+    
+}
