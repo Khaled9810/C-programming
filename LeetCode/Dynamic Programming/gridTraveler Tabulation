@@ -1,0 +1,63 @@
+int grid(int M, int N) {
+    // Allocate memory for a 2D array dynamically
+    int **a = (int **)malloc(M * sizeof(int *));
+    if (a == NULL) {
+        fprintf(stderr, "Memory allocation failed\n");
+        return -1;
+    }
+    
+    for (int i = 0; i < M; i++) {
+        a[i] = (int *)malloc(N * sizeof(int));
+        if (a[i] == NULL) {
+            // Handle memory allocation failure
+            for (int j = 0; j < i; j++) {
+                free(a[j]);
+            }
+            free(a);
+            fprintf(stderr, "Memory allocation failed\n");
+            return -1;
+        }
+    }
+
+    // Initialize the array with zeros
+    for (int i = 0; i < M; i++) {
+        for (int j = 0; j < N; j++) {
+            a[i][j] = 0;
+        }
+    }
+
+    // Initialize a specific element if within bounds
+    if (M > 1 && N > 1) {
+        a[1][1] = 1;
+    } else {
+        fprintf(stderr, "Invalid dimensions for initialization\n");
+        for (int i = 0; i < M; i++) {
+            free(a[i]);
+        }
+        free(a);
+        return -1;
+    }
+
+    // Update the grid based on the given logic
+    for (int i = 0; i < M; i++) {
+        for (int j = 0; j < N; j++) {
+            if (i + 1 < M) {
+                a[i + 1][j] += a[i][j];
+            }
+            if (j + 1 < N) {
+                a[i][j + 1] += a[i][j];
+            }
+        }
+    }
+
+    // The result is the value at the bottom-right corner of the grid
+    int result = a[M - 1][N - 1];
+
+    // Free the allocated memory
+    for (int i = 0; i < M; i++) {
+        free(a[i]);
+    }
+    free(a);
+
+    return result;
+}
