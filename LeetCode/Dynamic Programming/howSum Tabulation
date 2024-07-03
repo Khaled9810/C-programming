@@ -1,0 +1,53 @@
+// Function to find a combination that sums up to targetSum using elements from numbers
+int* howSum(int targetSum, int* numbers, int numbersSize) {
+    // Create a dp array of pointers to store combinations
+    int** dp = (int**)malloc((targetSum + 1) * sizeof(int*));
+    for (int i = 0; i <= targetSum; i++) {
+        dp[i] = NULL;
+    }
+    
+    // Base case: an empty array can make sum 0
+    dp[0] = (int*)malloc(sizeof(int));
+    dp[0][0] = 0;
+    
+    // Build the dp array
+    for (int i = 0; i <= targetSum; i++) {
+        if (dp[i] != NULL) {
+            for (int j = 0; j < numbersSize; j++) {
+                int newIndex = i + numbers[j];
+                if (newIndex <= targetSum) {
+                    // Allocate memory for new combination
+                    int newSize = dp[i][0] + 1;
+                    dp[newIndex] = (int*)malloc((newSize + 1) * sizeof(int));
+                    
+                    // Copy previous combination and add numbers[j]
+                    for (int k = 0; k < dp[i][0]; k++) {
+                        dp[newIndex][k] = dp[i][k];
+                    }
+                    dp[newIndex][dp[i][0]] = numbers[j];
+                    dp[newIndex][0] = newSize;
+                }
+            }
+        }
+    }
+    
+    // Get the result from dp[targetSum]
+    int* result = NULL;
+    if (dp[targetSum] != NULL) {
+        int size = dp[targetSum][0];
+        result = (int*)malloc((size + 1) * sizeof(int));
+        for (int i = 0; i <= size; i++) {
+            result[i] = dp[targetSum][i];
+        }
+    }
+    
+    // Free allocated memory
+    for (int i = 0; i <= targetSum; i++) {
+        if (dp[i] != NULL) {
+            free(dp[i]);
+        }
+    }
+    free(dp);
+    
+    return result;
+}
