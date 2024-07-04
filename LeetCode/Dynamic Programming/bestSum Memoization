@@ -1,0 +1,55 @@
+#define MAX_MEMO_SIZE 1000
+
+// Initialize memoization array
+int **memo[MAX_MEMO_SIZE];
+
+// Initialize memoization table
+void initMemo() {
+    for (int i = 0; i < MAX_MEMO_SIZE; i++) {
+        memo[i] = NULL;
+    }
+}
+
+// Function to find the best sum
+int *bestSum(int targetSum, int *numbers, int numberSize) {
+    if (targetSum < 0) return NULL;
+    if (targetSum == 0) {
+        int *result = (int *)malloc(sizeof(int));
+        result[0] = -1;
+        return result;
+    }
+
+    if (targetSum >= 0 && memo[targetSum] != NULL) return memo[targetSum];
+
+    int *shortestCombination = NULL;
+    int shortestSize = -1;
+
+    for (int i = 0; i < numberSize; i++) {
+        int remainder = targetSum - numbers[i];
+        int *remainderResult = bestSum(remainder, numbers, numberSize);
+
+        if (remainderResult != NULL) {
+            int remainderSize = 0;
+            while (remainderResult[remainderSize] != -1) remainderSize++;
+
+            int *newCombination = (int *)malloc((remainderSize + 2) * sizeof(int));
+            for (int j = 0; j < remainderSize; j++) {
+                newCombination[j] = remainderResult[j];
+            }
+            newCombination[remainderSize] = numbers[i];
+            newCombination[remainderSize + 1] = -1;
+
+            if (shortestCombination == NULL || remainderSize + 1 < shortestSize) {
+                if (shortestCombination != NULL) free(shortestCombination);
+                shortestCombination = newCombination;
+                shortestSize = remainderSize + 1;
+            } else {
+                free(newCombination);
+            }
+        }
+        if (remainderResult != memo[remainder]) free(remainderResult);
+    }
+
+    memo[targetSum] = shortestCombination;
+    return shortestCombination;
+}
